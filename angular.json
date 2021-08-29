@@ -1,5 +1,8 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "cli": {
+    "analytics": "33e95419-7f46-4c1f-b148-b09b3e281594"
+  },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
@@ -20,7 +23,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/angularclientUsers",
+            "outputPath": "dist/angularclientUsers/browser",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -31,9 +34,17 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss",
+              "node_modules/@fortawesome/fontawesome-free/scss/solid.scss",
+              "node_modules/@fortawesome/fontawesome-free/scss/regular.scss",
+              "node_modules/@fortawesome/fontawesome-free/scss/brands.scss",
+              "node_modules/angular-bootstrap-md/assets/scss/bootstrap/bootstrap.scss",
+              "node_modules/angular-bootstrap-md/assets/scss/mdb.scss",
+             "node_modules/animate.css/animate.css",
+             "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": ["node_modules/chart.js/dist/Chart.js",
+              "node_modules/hammerjs/hammer.min.js"]
           },
           "configurations": {
             "production": {
@@ -103,6 +114,65 @@
             ],
             "scripts": []
           }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/angularclientUsers/server",
+            "main": "server.ts",
+            "tsConfig": "tsconfig.server.json",
+            "inlineStyleLanguage": "scss"
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ]
+            },
+            "development": {
+              "optimization": false,
+              "sourceMap": true,
+              "extractLicenses": false
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve-ssr": {
+          "builder": "@nguniversal/builders:ssr-dev-server",
+          "configurations": {
+            "development": {
+              "browserTarget": "angularclientUsers:build:development",
+              "serverTarget": "angularclientUsers:server:development"
+            },
+            "production": {
+              "browserTarget": "angularclientUsers:build:production",
+              "serverTarget": "angularclientUsers:server:production"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "prerender": {
+          "builder": "@nguniversal/builders:prerender",
+          "options": {
+            "routes": [
+              "/"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "angularclientUsers:build:production",
+              "serverTarget": "angularclientUsers:server:production"
+            },
+            "development": {
+              "browserTarget": "angularclientUsers:build:development",
+              "serverTarget": "angularclientUsers:server:development"
+            }
+          },
+          "defaultConfiguration": "production"
         }
       }
     }
