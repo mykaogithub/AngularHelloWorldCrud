@@ -191,5 +191,27 @@ TypeScript is a superset of JavaScript. It is a strongly typed language. So unli
 
 Go to localhost:4200 
 
+in order to use data table  install NPM package called jquery, datatables.net and bootstrap etc to implement datatable in angular 11 app. So, You can install the packages by executing the following commands on the terminal:
 
+npm install jquery --save
+npm install datatables.net --save
+npm install datatables.net-dt --save
+npm install angular-datatables --save
+npm install @types/jquery --save-dev
+npm install @types/datatables.net --save-dev
+npm install bootstrap --save
+
+After that, open angular.json file and update the following code into it:
+
+...
+"styles": [
+              ...
+              "node_modules/datatables.net-dt/css/jquery.dataTables.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+            ],
+            "scripts": [
+            "node_modules/jquery/dist/jquery.js",
+            "node_modules/datatables.net/js/jquery.dataTables.js",
+            "node_modules/bootstrap/dist/js/bootstrap.js",
+            ]
 
