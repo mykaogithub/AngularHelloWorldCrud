@@ -22,4 +22,8 @@ export class UserServiceService {
   public save(user: User) {
     return this.http.post<User>(this.usersUrl, user);
   }
+
+  public findAllPageable(): Observable<User[]> {
+    return this.http.get<User[]>(this.usersUrl);
+  }
 }
